@@ -24,7 +24,7 @@ public class MedicamentoDAO implements DAO<Medicamento>{
     public boolean inserir(Medicamento obj) throws SQLException, ClassNotFoundException {
        String sql;
         Banco.abrir();
-        sql = "INSERT INTO Medicamentos values (?,?,?);";
+        sql = "INSERT INTO Medicamentos values (?,?,?,?,?,?,?);";
         pst = Banco.getConexao().prepareStatement(sql);
         //Atribuir os dados do model para o pst
         pst.setString(1, obj.getNome());

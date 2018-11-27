@@ -53,7 +53,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
-        rdbReceita = new javax.swing.JRadioButton();
+        chkReceita = new javax.swing.JCheckBox();
 
         jPanel1.setToolTipText("");
 
@@ -88,7 +88,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Preço");
 
-        rdbReceita.setText("Receita");
+        chkReceita.setText("Receita");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +119,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
                                             .addComponent(txtqtdMed, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                                             .addComponent(jLabel8)
                                             .addComponent(txtPreco))
-                                        .addComponent(rdbReceita))
+                                        .addComponent(chkReceita))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel5))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -164,15 +164,11 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                        .addComponent(rdbReceita)
-                        .addGap(18, 18, 18)))
+                .addGap(13, 13, 13)
+                .addComponent(chkReceita)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltarMed)
                     .addComponent(btnCadastrarMed))
@@ -194,7 +190,6 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     
     
     private void incluirMedicamento() throws SQLException, ClassNotFoundException{
@@ -224,6 +219,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarMed;
     private javax.swing.JButton btnVoltarMed;
+    private javax.swing.JCheckBox chkReceita;
     private javax.swing.JComboBox<String> cmbFormas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -234,7 +230,6 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton rdbReceita;
     private javax.swing.JTextField txtCodMed;
     private javax.swing.JTextField txtLab;
     private javax.swing.JTextField txtPreco;

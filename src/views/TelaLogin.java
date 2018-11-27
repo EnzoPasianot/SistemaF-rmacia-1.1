@@ -121,27 +121,30 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         String alo = "";
         String login = txtLogin.getText();
-        try {
-            String sql = "SELECT password as passwd from Funcionarios where login = ?;";
-            Banco.abrir();
-            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
-            pst.setString(1, login);
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            alo = rs.getString("passwd");
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(txtSenha.getText().equals(alo)){
-            JOptionPane.showMessageDialog(null,"Bem Vindo");
-            MenuPrincipal telaMenu = new  MenuPrincipal();
-            telaMenu.setVisible(true);
-            dispose();//fecha a tela que estava
-        }else {
-            JOptionPane.showMessageDialog(null,"Acesso Negado");
+        if (txtLogin.getText().equals("") || txtSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Os campos de login e senha devem ser preenchidos");
+        } else {
+            try {
+                String sql = "SELECT password as passwd from Funcionarios where login = ?;";
+                Banco.abrir();
+                PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+                pst.setString(1, login);
+                ResultSet rs = pst.executeQuery();
+                rs.next();
+                alo = rs.getString("passwd");
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(txtSenha.getText().equals(alo)){
+                JOptionPane.showMessageDialog(null,"Bem Vindo");
+                MenuPrincipal telaMenu = new  MenuPrincipal();
+                telaMenu.setVisible(true);
+                dispose();//fecha a tela que estava
+            }else {
+                JOptionPane.showMessageDialog(null,"Acesso Negado");
+            }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
