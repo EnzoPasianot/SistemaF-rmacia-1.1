@@ -43,6 +43,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         return cargo;
     }
     CaixaDAO caixa = new CaixaDAO();
+    
+    
     public MenuPrincipal() {
         initComponents();
         String cargo = recebeCargo();
