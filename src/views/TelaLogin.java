@@ -18,8 +18,7 @@ import javax.swing.JOptionPane;
  * @author enzop
  */
 public class TelaLogin extends javax.swing.JFrame {
-    
-    
+
     /**
      * Creates new form TelaLogin
      */
@@ -118,17 +117,36 @@ public class TelaLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateLogar(int id) {
+        String sql;
+        try {
+            Banco.abrir();
+            sql = "UPDATE Funcionarios set logado = 1 where idFunc = ?";
+            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+            pst.setInt(1, id);
+            pst.executeUpdate();
+            //Atribuir os dados do model para o pst
+            Banco.fechar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
         String login = txtLogin.getText();
         String nome = "";
         String senha = "";
         String cargo = "";
+        int id = 0;
         if (txtLogin.getText().equals("") || txtSenha.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Os campos de login e senha devem ser preenchidos");
         } else {
             try {
-                String sql = "SELECT password as passwd, nome as nome, cargo as cargo from Funcionarios where login = ?;";
+                String sql = "SELECT idFunc as id, password as passwd, nome as nome, cargo as cargo from Funcionarios where login = ?;";
                 Banco.abrir();
                 PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
                 pst.setString(1, login);
@@ -137,19 +155,20 @@ public class TelaLogin extends javax.swing.JFrame {
                 senha = rs.getString("passwd");
                 nome = rs.getString("nome");
                 cargo = rs.getString("cargo");
+                id = rs.getInt("id");
             } catch (SQLException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(txtSenha.getText().equals(senha)){
-                
-                JOptionPane.showMessageDialog(null,"Bem Vindo " + nome + "!");    
-                MenuPrincipal telaMenu = new  MenuPrincipal();
+            if (txtSenha.getText().equals(senha)) {
+                updateLogar(id);
+                JOptionPane.showMessageDialog(null, "Bem Vindo " + nome + "!");
+                MenuPrincipal telaMenu = new MenuPrincipal();
                 telaMenu.setVisible(true);
                 dispose();//fecha a tela que estdadava
-            }else {
-                JOptionPane.showMessageDialog(null,"Acesso Negado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Acesso Negado");
             }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed

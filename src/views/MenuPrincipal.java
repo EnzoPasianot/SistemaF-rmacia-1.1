@@ -21,14 +21,34 @@ import javax.swing.JOptionPane;
  * @author enzop
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form MenuPrincipal
      */
+    public String recebeCargo(){
+        String cargo = "";
+        String sql = "SELECT cargo as cargo from Funcionarios where logado = 1;";
+        try {
+            Banco.abrir();
+            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            cargo = rs.getString("cargo");
+            Banco.fechar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return cargo;
+    }
     CaixaDAO caixa = new CaixaDAO();
     public MenuPrincipal() {
         initComponents();
-        System.out.println("ola");
+        String cargo = recebeCargo();
+        if(cargo.equals("atendente")){
+            fecharCaixa.setEnabled(false);
+        }
     }
     
     /**
