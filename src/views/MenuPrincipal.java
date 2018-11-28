@@ -11,6 +11,7 @@ import Model.Caixa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,6 +79,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        MenuVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +135,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         itemConsultaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-google-web-search-24.png"))); // NOI18N
         itemConsultaCliente.setText("Consultar");
+        itemConsultaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultaClienteActionPerformed(evt);
+            }
+        });
         menuCliente.add(itemConsultaCliente);
 
         itemExcluirCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-cancel-24.png"))); // NOI18N
@@ -169,6 +176,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-sell-32.png"))); // NOI18N
         jMenu4.setText("Venda");
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
+
+        MenuVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-sell-32.png"))); // NOI18N
+        MenuVenda.setText("Venda");
+        MenuVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuVendaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(MenuVenda);
+
         menuPrincipal.add(jMenu4);
 
         setJMenuBar(menuPrincipal);
@@ -249,6 +271,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_fecharCaixaActionPerformed
 
+    private void itemConsultaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaClienteActionPerformed
+       
+    }//GEN-LAST:event_itemConsultaClienteActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void MenuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -285,6 +319,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuVenda;
     private javax.swing.JMenuItem abrirCaixa;
     private javax.swing.JMenuItem fecharCaixa;
     private javax.swing.JMenuItem itemAddCliente;

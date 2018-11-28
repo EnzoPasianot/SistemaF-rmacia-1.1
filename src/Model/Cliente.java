@@ -26,7 +26,7 @@ public class Cliente {
         this.nome = nome;
         this.tipo = tipo;
     }
-
+   
     public String getTipo() {
         return tipo;
     }
