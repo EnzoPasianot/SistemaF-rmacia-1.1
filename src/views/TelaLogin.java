@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
  * @author enzop
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form TelaLogin
      */
@@ -119,29 +120,34 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        String alo = "";
         String login = txtLogin.getText();
+        String nome = "";
+        String senha = "";
+        String cargo = "";
         if (txtLogin.getText().equals("") || txtSenha.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Os campos de login e senha devem ser preenchidos");
         } else {
             try {
-                String sql = "SELECT password as passwd from Funcionarios where login = ?;";
+                String sql = "SELECT password as passwd, nome as nome, cargo as cargo from Funcionarios where login = ?;";
                 Banco.abrir();
                 PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
                 pst.setString(1, login);
                 ResultSet rs = pst.executeQuery();
                 rs.next();
-                alo = rs.getString("passwd");
+                senha = rs.getString("passwd");
+                nome = rs.getString("nome");
+                cargo = rs.getString("cargo");
             } catch (SQLException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(txtSenha.getText().equals(alo)){
-                JOptionPane.showMessageDialog(null,"Bem Vindo");
+            if(txtSenha.getText().equals(senha)){
+                
+                JOptionPane.showMessageDialog(null,"Bem Vindo " + nome + "!");    
                 MenuPrincipal telaMenu = new  MenuPrincipal();
                 telaMenu.setVisible(true);
-                dispose();//fecha a tela que estava
+                dispose();//fecha a tela que estdadava
             }else {
                 JOptionPane.showMessageDialog(null,"Acesso Negado");
             }

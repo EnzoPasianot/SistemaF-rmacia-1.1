@@ -22,14 +22,19 @@ public class MedicamentoDAO implements DAO<Medicamento>{
     
     @Override
     public boolean inserir(Medicamento obj) throws SQLException, ClassNotFoundException {
-       String sql;
+        String sql;
         Banco.abrir();
-        sql = "INSERT INTO Medicamentos values (?,?,?,?,?,?,?);";
+        sql = "INSERT INTO Medicamentos values (?,?,?,?,?,?,?,?);";
         pst = Banco.getConexao().prepareStatement(sql);
         //Atribuir os dados do model para o pst
-        pst.setString(1, obj.getNome());
-        pst.setString(2, obj.getNomeFabricante());
-        pst.setString(3, obj.getQtdMedicamento());
+        pst.setInt(1, obj.getCodigo());
+        pst.setString(2, obj.getNomeComercial());
+        pst.setString(3, obj.getNomeQuimico());
+        pst.setString(4, obj.getLaboratorio());
+        pst.setString(5, obj.getFormas());
+        pst.setInt(6, obj.getQtd());
+        pst.setDouble(7, obj.getPreco());
+        pst.setInt(8, obj.isReceita() ? 1 : 0);
         
         //vamos executar o comando
         if(pst.executeUpdate() > 0) {

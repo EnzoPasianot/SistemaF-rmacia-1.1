@@ -41,7 +41,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         txtnomeMed = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtnomeFabricante = new javax.swing.JTextField();
+        txtnomeQuimico = new javax.swing.JTextField();
         btnCadastrarMed = new javax.swing.JButton();
         btnVoltarMed = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -97,7 +97,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtLab, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnomeQuimico, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(25, 25, 25)
@@ -147,7 +147,7 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtnomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtnomeQuimico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,9 +194,14 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
     
     private void incluirMedicamento() throws SQLException, ClassNotFoundException{
         medicamento = new Medicamento();
-        medicamento.setNome(txtnomeMed.getText());
-        medicamento.setNomeFabricante(txtnomeFabricante.getText());
-        medicamento.setQtdMedicamento(txtqtdMed.getText());
+        medicamento.setCodigo(Integer.parseInt(txtCodMed.getText()));
+        medicamento.setNomeComercial(txtnomeMed.getText());
+        medicamento.setNomeQuimico(txtnomeQuimico.getText());
+        medicamento.setLaboratorio(txtLab.getText());
+        medicamento.setFormas(cmbFormas.getSelectedItem().toString());
+        medicamento.setQtd(Integer.parseInt(txtqtdMed.getText()));
+        medicamento.setPreco(Double.parseDouble(txtPreco.getText()));
+        medicamento.setReceita(chkReceita.isSelected());
         m1.inserir(medicamento);
         
     }
@@ -233,8 +238,8 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodMed;
     private javax.swing.JTextField txtLab;
     private javax.swing.JTextField txtPreco;
-    private javax.swing.JTextField txtnomeFabricante;
     private javax.swing.JTextField txtnomeMed;
+    private javax.swing.JTextField txtnomeQuimico;
     private javax.swing.JTextField txtqtdMed;
     // End of variables declaration//GEN-END:variables
 }

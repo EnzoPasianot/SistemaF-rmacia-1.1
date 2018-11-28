@@ -28,8 +28,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     CaixaDAO caixa = new CaixaDAO();
     public MenuPrincipal() {
         initComponents();
+        System.out.println("ola");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
