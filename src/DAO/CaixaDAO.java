@@ -56,16 +56,12 @@ public class CaixaDAO implements DAO<Caixa>{
         }        
         
         if (alo == 0){
-            Date horario = new Date();
-            java.sql.Timestamp dataSql = new java.sql.Timestamp(horario.getTime());
             sql = "INSERT INTO controleCaixa (idFunc, abertura, status) values (?, NOW() ,?);";
             Banco.abrir();
             pst = Banco.getConexao().prepareStatement(sql);
             pst.setInt(1, id);
             pst.setInt(2,1);
         }else{
-            Date horario = new Date();
-            java.sql.Timestamp dataSql = new java.sql.Timestamp(horario.getTime());
             sql = "update controleCaixa set fechamento = NOW(), status = ? where idFunc = ? and status = ?;";
             Banco.abrir();
             pst = Banco.getConexao().prepareStatement(sql);
