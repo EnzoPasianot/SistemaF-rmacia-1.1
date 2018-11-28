@@ -28,7 +28,7 @@ public class ClienteDAO implements DAO<Cliente>{
         pst = Banco.getConexao().prepareStatement(sql);
         //Atribuir os dados do model para o pst
         pst.setString(1, obj.getCpf());
-        pst.setString(2, obj.getDataNasc());
+        pst.setDate(2, new java.sql.Date(obj.getDataNasc().getTime()));
         pst.setString(3, obj.getSexo());
         pst.setString(4, obj.getNome());
         pst.setString(5, obj.getTipo());

@@ -13,13 +13,13 @@ import java.util.Date;
  */
 public class Cliente {
     private String cpf;
-    private String dataNasc;
+    private Date dataNasc;
     private String sexo;
     private String nome;
     private String tipo;
 
 
-    public Cliente(String cpf, String dataNasc, String sexo, String nome, String tipo) {
+    public Cliente(String cpf, Date dataNasc, String sexo, String nome, String tipo) {
         this.cpf = cpf;
         this.dataNasc = dataNasc;
         this.sexo = sexo;
@@ -46,11 +46,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(String dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 

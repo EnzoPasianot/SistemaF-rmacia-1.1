@@ -7,11 +7,16 @@ package DAO;
 
 import Banco.Banco;
 import Model.Caixa;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import views.MenuPrincipal;
 
 /**
  *
@@ -35,13 +40,28 @@ public class CaixaDAO implements DAO<Caixa>{
         rs = pst.executeQuery();
         rs.next();
         int alo = rs.getInt("contador");
+        int id = 0;
+        sql = "SELECT idFunc as id from Funcionarios where logado = 1;";
+        try {
+            Banco.abrir();
+            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            id = rs.getInt("id");
+            Banco.fechar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
         if (alo == 0){
             Date horario = new Date();
             java.sql.Timestamp dataSql = new java.sql.Timestamp(horario.getTime());
             sql = "INSERT INTO controleCaixa (idFunc, abertura, fechamento, status) values (?,?,?,?);";
             Banco.abrir();
             pst = Banco.getConexao().prepareStatement(sql);
-            pst.setInt(1, 500); //"-- COLOCAR O LBL DO ID FUNCIONARIO NO LUGAR DO 500-NÃO SEI COLOCAR ENZO ME AJUDA"
+            pst.setInt(1, id); //"-- COLOCAR O LBL DO ID FUNCIONARIO NO LUGAR DO 500-NÃO SEI COLOCAR ENZO ME AJUDA"
             pst.setTimestamp(2, dataSql); //na hora de fechar o banco tem que colocar o ultimo valor (de fechamento)
             pst.setTimestamp(3, dataSql);
             pst.setInt(4,1);
@@ -53,7 +73,7 @@ public class CaixaDAO implements DAO<Caixa>{
             pst = Banco.getConexao().prepareStatement(sql);
             pst.setTimestamp(1, dataSql);
             pst.setInt(2, 0);
-            pst.setInt(3, 500); 
+            pst.setInt(3, id); 
             pst.setInt(4, 1);
         }
         

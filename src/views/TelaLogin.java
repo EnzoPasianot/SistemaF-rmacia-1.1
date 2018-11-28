@@ -22,9 +22,13 @@ public class TelaLogin extends javax.swing.JFrame {
     /**
      * Creates new form TelaLogin
      */
+    
+
     public TelaLogin() {
         initComponents();
     }
+    
+      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +53,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Login");
 
@@ -156,10 +165,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 nome = rs.getString("nome");
                 cargo = rs.getString("cargo");
                 id = rs.getInt("id");
+                Banco.fechar();
             } catch (SQLException ex) {
-                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Acesso Negado");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Acesso Negado");
             }
             if (txtSenha.getText().equals(senha)) {
                 updateLogar(id);
@@ -172,6 +182,21 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        String sql = "update funcionarios set logado = 0";
+        try{
+            Banco.abrir();
+            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+            pst.executeUpdate(); 
+            Banco.fechar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -8,6 +8,8 @@ package views;
 import DAO.ClienteDAO;
 import Model.Cliente;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -187,9 +189,17 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
     private void incluirCliente() throws SQLException, ClassNotFoundException{
         cliente = new Cliente();
+        String aux = txtData.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date datanasc = null;
+        try {
+            datanasc = sdf.parse(aux);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cliente.setCpf(txtCPF.getText());
         cliente.setNome(txtNome.getText());
-        cliente.setDataNasc(txtData.getText());
+        cliente.setDataNasc(datanasc);
         cliente.setSexo((String) jComboBox1.getSelectedItem());
         cliente.setTipo((String) cmbTipoCliente.getSelectedItem());
         c1.inserir(cliente);
