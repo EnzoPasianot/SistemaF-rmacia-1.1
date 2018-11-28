@@ -58,23 +58,20 @@ public class CaixaDAO implements DAO<Caixa>{
         if (alo == 0){
             Date horario = new Date();
             java.sql.Timestamp dataSql = new java.sql.Timestamp(horario.getTime());
-            sql = "INSERT INTO controleCaixa (idFunc, abertura, fechamento, status) values (?,?,?,?);";
+            sql = "INSERT INTO controleCaixa (idFunc, abertura, status) values (?, NOW() ,?);";
             Banco.abrir();
             pst = Banco.getConexao().prepareStatement(sql);
-            pst.setInt(1, id); //"-- COLOCAR O LBL DO ID FUNCIONARIO NO LUGAR DO 500-NÃO SEI COLOCAR ENZO ME AJUDA"
-            pst.setTimestamp(2, dataSql); //na hora de fechar o banco tem que colocar o ultimo valor (de fechamento)
-            pst.setTimestamp(3, dataSql);
-            pst.setInt(4,1);
+            pst.setInt(1, id);
+            pst.setInt(2,1);
         }else{
             Date horario = new Date();
             java.sql.Timestamp dataSql = new java.sql.Timestamp(horario.getTime());
-            sql = "update controleCaixa set fechamento = ?, status = ? where idFunc = ? and status = ?;";
+            sql = "update controleCaixa set fechamento = NOW(), status = ? where idFunc = ? and status = ?;";
             Banco.abrir();
             pst = Banco.getConexao().prepareStatement(sql);
-            pst.setTimestamp(1, dataSql);
-            pst.setInt(2, 0);
-            pst.setInt(3, id); 
-            pst.setInt(4, 1);
+            pst.setInt(1, 0);
+            pst.setInt(2, id); 
+            pst.setInt(3, 1);
         }
         
         if(pst.executeUpdate() > 0) {
