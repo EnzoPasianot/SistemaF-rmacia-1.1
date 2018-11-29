@@ -58,7 +58,6 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         btnVoltar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cmbTipoCliente = new javax.swing.JComboBox<>();
-        btnAlterar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -105,17 +104,15 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Tipo");
 
         cmbTipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Normal", "Aposentado" }));
-
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,10 +135,8 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnVoltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadastrarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterar)))
-                .addContainerGap(218, Short.MAX_VALUE))
+                        .addComponent(btnCadastrarCliente)))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,9 +163,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                 .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCadastrarCliente)
-                        .addComponent(btnAlterar))
+                    .addComponent(btnCadastrarCliente)
                     .addComponent(btnVoltar))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -179,13 +172,13 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,10 +202,10 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
        // TODO add your handling code here:
     }//GEN-LAST:event_txtCPFActionPerformed
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
-        alterarCliente();
-    }//GEN-LAST:event_btnAlterarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void incluirCliente() throws SQLException, ClassNotFoundException{
         cliente = new Cliente();
@@ -233,53 +226,11 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                
     }
     
-     private void alterarCliente() {
-        cliente = new Cliente();
-        String aux = txtData.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date datanasc = null;
-         try {
-            datanasc = sdf.parse(aux);
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cliente.setCpf(txtCPF.getText());
-        cliente.setNome(txtNome.getText());
-        cliente.setDataNasc(datanasc);
-        cliente.setSexo((String) jComboBox1.getSelectedItem());
-        cliente.setTipo((String) cmbTipoCliente.getSelectedItem());
-        
-        try {
-            if(c1.alterar(cliente)) {
-                JOptionPane.showMessageDialog(this,
-                        "Cliente Alterado com Sucesso!!!",
-                        "Mensagem ao Usuário",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
-                JOptionPane.showMessageDialog(this,
-                        "Erro ao Alterar",
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-        }
-       
-    }
+
     
    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> cmbTipoCliente;

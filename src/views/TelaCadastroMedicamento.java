@@ -77,6 +77,11 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
         });
 
         btnVoltarMed.setText("Voltar");
+        btnVoltarMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMedActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Código");
 
@@ -219,6 +224,11 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnCadastrarMedActionPerformed
+
+    private void btnVoltarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMedActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnVoltarMedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

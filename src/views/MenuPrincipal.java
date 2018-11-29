@@ -26,15 +26,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
+    String nome;
     public String recebeCargo(){
         String cargo = "";
-        String sql = "SELECT cargo as cargo from Funcionarios where logado = 1;";
+        String sql = "SELECT nome as nome, cargo as cargo from Funcionarios where logado = 1;";
         try {
             Banco.abrir();
             PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             rs.next();
             cargo = rs.getString("cargo");
+            nome = rs.getString("nome");
             Banco.fechar();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,13 +47,40 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     CaixaDAO caixa = new CaixaDAO();
     
+    int caixastats;
     
+    public int recebeCaixa(){
+        String sql = "SELECT count(*) as status from controlecaixa where status = 1;";
+        try {
+            Banco.abrir();
+            PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            caixastats = rs.getInt("status");
+            Banco.fechar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return caixastats;
+    }
+    
+    public void atualizaLblCaixa(){
+        recebeCaixa();
+        if(caixastats == 1)
+            lblCaixa.setText("O caixa se encontra aberto");
+        else
+            lblCaixa.setText("O caixa se encontra fechado");
+    }
     public MenuPrincipal() {
         initComponents();
         String cargo = recebeCargo();
         if(cargo.equals("atendente")){
             fecharCaixa.setEnabled(false);
         }
+        lblNome.setText("Bem vindo  " + nome);
+        atualizaLblCaixa();
     }
     
     /**
@@ -64,6 +93,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         painelPrincipal = new javax.swing.JDesktopPane();
+        lblNome = new javax.swing.JLabel();
+        lblCaixa = new javax.swing.JLabel();
         menuPrincipal = new javax.swing.JMenuBar();
         menuCaixa = new javax.swing.JMenu();
         abrirCaixa = new javax.swing.JMenuItem();
@@ -83,15 +114,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblNome.setText("jLabel2");
+
+        lblCaixa.setText("jLabel1");
+
+        painelPrincipal.setLayer(lblNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        painelPrincipal.setLayer(lblCaixa, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(lblCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         painelPrincipalLayout.setVerticalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 237, Short.MAX_VALUE)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCaixa)
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         menuCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-cash-register-32.png"))); // NOI18N
@@ -131,6 +179,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         itemAltCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-transfer-24.png"))); // NOI18N
         itemAltCliente.setText("Alterar");
+        itemAltCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAltClienteActionPerformed(evt);
+            }
+        });
         menuCliente.add(itemAltCliente);
 
         itemConsultaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-google-web-search-24.png"))); // NOI18N
@@ -230,10 +283,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
             rs.next();
             int alo = rs.getInt("contador");
-            if (alo == 0)
+            if (alo == 0){
                 caixa.inserir(c);
-            else
+                atualizaLblCaixa();
+            }else{
                 JOptionPane.showMessageDialog(null, "Caixa já está aberto");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -259,10 +314,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
             rs.next();
             int alo = rs.getInt("contador");
-            if (alo == 1)
+            if (alo == 1){
                 caixa.inserir(c);
-            else
+                atualizaLblCaixa();
+            }else{
                 JOptionPane.showMessageDialog(null, "Caixa já está fechado");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -282,6 +339,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void MenuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuVendaActionPerformed
+
+    private void itemAltClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltClienteActionPerformed
+        // TODO add your handling code here:
+        AtualizarCliente telaAt = new AtualizarCliente();
+        painelPrincipal.add(telaAt);
+        telaAt.setVisible(true);
+    }//GEN-LAST:event_itemAltClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,6 +396,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JLabel lblCaixa;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JMenu menuCaixa;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuBar menuPrincipal;

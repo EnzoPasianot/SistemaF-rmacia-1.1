@@ -9,8 +9,14 @@ import Banco.Banco;
 import Model.Cliente;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +42,7 @@ public class ClienteDAO implements DAO<Cliente>{
         
         //vamos executar o comando
         if(pst.executeUpdate() > 0) {
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado!");
             Banco.fechar();
             return true;
         }
@@ -51,21 +58,24 @@ public class ClienteDAO implements DAO<Cliente>{
     public boolean alterar(Cliente obj) throws SQLException, ClassNotFoundException {
        String sql;
         //cria o comando DML
-        sql = "UPDATE clientes SET cpf = ?, datanasc = ?, "
-            + "sexo = ?, nome = ?, tipo = ? "
-            + "WHERE cpf = ?;";
+        sql = "UPDATE clientes SET sexo = ? , nome = ? , tipo = ? WHERE cpf = ? ";
         //Cria o pst com base na conexao e no comando DML
         Banco.abrir();
         pst = Banco.getConexao().prepareStatement(sql);
         //Atribuir os dados do model para o pst
-        pst.setString(1, obj.getCpf());
-        pst.setDate(2, new java.sql.Date(obj.getDataNasc().getTime()));
-        pst.setString(3, obj.getSexo());
-        pst.setString(4, obj.getNome());
-        pst.setString(5, obj.getTipo());
+        System.out.println(obj.getSexo());
+        System.out.println(obj.getNome());
+        System.out.println(obj.getTipo());
+        System.out.println(obj.getCpf());
+        
+        pst.setString(1, obj.getSexo());
+        pst.setString(2, obj.getNome());
+        pst.setString(3, obj.getTipo());
+        pst.setString(4, obj.getCpf());
         
         //vamos executar o comando
         if(pst.executeUpdate() > 0) {
+            JOptionPane.showMessageDialog(null, "Cadastro do Cpf " + obj.getCpf() + " atualizado!");
             Banco.fechar();
             return true;
         }
