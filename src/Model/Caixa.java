@@ -16,14 +16,35 @@ public class Caixa {
     private Date DataAbertura;
     private Date DataFechamento;
     private int status;
+    private double dinheiro;
+    private double dinheirofinal;
 
-    public Caixa(int idFunc, Date DataAbertura, Date DataFechamento, int status) {
-        this.idFunc = 0;
-        this.DataAbertura = null;
-        this.DataFechamento = null;
-        this.status = 0;
+    public Caixa(int idFunc, Date DataAbertura, Date DataFechamento, int status, double dinheiro, double dinheirofinal) {
+        this.idFunc = idFunc;
+        this.DataAbertura = DataAbertura;
+        this.DataFechamento = DataFechamento;
+        this.status = status;
+        this.dinheiro = dinheiro;
+        this.dinheirofinal = dinheirofinal;
     }
 
+    public double getDinheirofinal() {
+        return dinheirofinal;
+    }
+
+    public void setDinheirofinal(double dinheirofinal) {
+        this.dinheirofinal = dinheirofinal;
+    }
+    
+    public double getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(double dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+
+       
     public int getIdFunc() {
         return idFunc;
     }

@@ -19,6 +19,12 @@ public class Medicamento {
     private double preco;
     private boolean receita;
 
+    @Override
+    public String toString() {
+        return this.nomeComercial;
+    }
+
+    
     public int getCodigo() {
         return codigo;
     }

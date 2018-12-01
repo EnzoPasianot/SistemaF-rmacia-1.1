@@ -10,6 +10,7 @@ import Model.Medicamento;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -207,7 +208,6 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
         medicamento.setQtd(Integer.parseInt(txtqtdMed.getText()));
         medicamento.setPreco(Double.parseDouble(txtPreco.getText()));
         medicamento.setReceita(chkReceita.isSelected());
-        m1.inserir(medicamento);
         
     }
     private void txtqtdMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtqtdMedActionPerformed
@@ -217,6 +217,18 @@ public class TelaCadastroMedicamento extends javax.swing.JInternalFrame {
     private void btnCadastrarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMedActionPerformed
         try {
             incluirMedicamento();
+            if(m1.inserir(medicamento)){
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado");
+                txtCodMed.setText("");
+                txtnomeMed.setText("");
+                txtnomeQuimico.setText("");
+                txtLab.setText("");
+                cmbFormas.setSelectedItem("Escolha");
+                txtqtdMed.setText("");
+                chkReceita.setSelected(false);
+            }
+                
+            
         } catch (SQLException ex) {
             Logger.getLogger(TelaCadastroMedicamento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

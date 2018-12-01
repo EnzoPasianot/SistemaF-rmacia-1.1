@@ -80,7 +80,39 @@ public class CaixaDAO implements DAO<Caixa>{
         }
     }
     
+    public boolean valorInicial(Caixa obj) throws SQLException, ClassNotFoundException{
+        String sql = "UPDATE controleCaixa set dinheiro = ? where status = 1";
+            Banco.abrir();
+            pst = Banco.getConexao().prepareStatement(sql);
+            pst.setDouble(1, obj.getDinheiro());
+        
+        
+        if(pst.executeUpdate() > 0) {
+            Banco.fechar();
+            return true;
+        }
+        else {
+            Banco.fechar();
+            return false;
+        }
+    }
     
+    public boolean valorFinal(double samuel) throws ClassNotFoundException, SQLException{
+        String sql = "UPDATE controleCaixa set dinheirofinal = ? where status = 1;";
+            Banco.abrir();
+            pst = Banco.getConexao().prepareStatement(sql);
+            pst.setDouble(1, samuel);
+        
+        
+        if(pst.executeUpdate() > 0) {
+            Banco.fechar();
+            return true;
+        }
+        else {
+            Banco.fechar();
+            return false;
+        }
+    }
     
     @Override
     public boolean alterar(Caixa obj) throws SQLException, ClassNotFoundException {

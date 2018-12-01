@@ -8,6 +8,8 @@ package views;
 import Banco.Banco;
 import DAO.CaixaDAO;
 import Model.Caixa;
+import Model.Cliente;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,10 +70,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     public void atualizaLblCaixa(){
         recebeCaixa();
-        if(caixastats == 1)
-            lblCaixa.setText("O caixa se encontra aberto");
-        else
-            lblCaixa.setText("O caixa se encontra fechado");
+        if(caixastats == 1){
+            lblBolinha.setText("∙");
+            lblBolinha.setForeground(new Color(0,255,0));
+            lblCaixa.setText("Caixa aberto");
+        }else{
+            lblBolinha.setText("∙");
+            lblBolinha.setForeground(new Color(255,0,0));
+            lblCaixa.setText("Caixa fechado");
+        }
     }
     public MenuPrincipal() {
         initComponents();
@@ -79,7 +86,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if(cargo.equals("atendente")){
             fecharCaixa.setEnabled(false);
         }
-        lblNome.setText("Bem vindo  " + nome);
+        lblNome.setText("Bem Vindo " + nome);
         atualizaLblCaixa();
     }
     
@@ -95,6 +102,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JDesktopPane();
         lblNome = new javax.swing.JLabel();
         lblCaixa = new javax.swing.JLabel();
+        lblBolinha = new javax.swing.JLabel();
         menuPrincipal = new javax.swing.JMenuBar();
         menuCaixa = new javax.swing.JMenu();
         abrirCaixa = new javax.swing.JMenuItem();
@@ -111,35 +119,49 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         MenuVenda = new javax.swing.JMenuItem();
+        btnSair = new javax.swing.JMenu();
+        Sair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(255, 255, 255));
         lblNome.setText("jLabel2");
 
+        lblCaixa.setForeground(new java.awt.Color(255, 255, 255));
         lblCaixa.setText("jLabel1");
+
+        lblBolinha.setText("jLabel1");
 
         painelPrincipal.setLayer(lblNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
         painelPrincipal.setLayer(lblCaixa, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        painelPrincipal.setLayer(lblBolinha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                    .addComponent(lblCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(lblBolinha, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(139, Short.MAX_VALUE)
+                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         painelPrincipalLayout.setVerticalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(48, 48, 48)
                 .addComponent(lblNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCaixa)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCaixa)
+                    .addComponent(lblBolinha))
+                .addContainerGap())
         );
 
         menuCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-cash-register-32.png"))); // NOI18N
@@ -246,6 +268,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu4);
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
+        btnSair.add(Sair);
+
+        menuPrincipal.add(btnSair);
+
         setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,30 +314,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemAddClienteActionPerformed
 
-    private void abrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirCaixaActionPerformed
-        Date horario = new Date();
-        Caixa c = new Caixa(1, horario, horario, 0);
-        try {
-            Banco.abrir();
-            String count = "SELECT count(*) as contador from controleCaixa where status = 1;";
-            PreparedStatement pst = Banco.getConexao().prepareStatement(count);
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            int alo = rs.getInt("contador");
-            if (alo == 0){
-                caixa.inserir(c);
-                atualizaLblCaixa();
-            }else{
-                JOptionPane.showMessageDialog(null, "Caixa já está aberto");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_abrirCaixaActionPerformed
-
     private void itemAddMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddMedActionPerformed
         // TODO add your handling code here:
         TelaCadastroMedicamento telaCadMedicamento = new TelaCadastroMedicamento();
@@ -306,7 +323,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void fecharCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharCaixaActionPerformed
         Date horario = new Date();
-        Caixa c = new Caixa(1, horario, horario, 0);
+        Caixa c = new Caixa(1, horario, horario, 0, 0, 0);
         try {
             Banco.abrir();
             String count = "SELECT count(*) as contador from controleCaixa where status = 1;";
@@ -315,8 +332,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             rs.next();
             int alo = rs.getInt("contador");
             if (alo == 1){
+                String resp = JOptionPane.showInputDialog(null, "Digite o valor final");
+                double ola = (Double.parseDouble(resp));
+                caixa.valorFinal(ola);
                 caixa.inserir(c);
                 atualizaLblCaixa();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Caixa já está fechado");
             }
@@ -338,6 +359,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void MenuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuVendaActionPerformed
         // TODO add your handling code here:
+        TelaVenda venda;
+        try {
+            venda = new TelaVenda();
+            venda.setVisible(true);
+            dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_MenuVendaActionPerformed
 
     private void itemAltClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltClienteActionPerformed
@@ -346,6 +375,57 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelPrincipal.add(telaAt);
         telaAt.setVisible(true);
     }//GEN-LAST:event_itemAltClienteActionPerformed
+
+    private void abrirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirCaixaActionPerformed
+        Date horario = new Date();
+        Caixa c = new Caixa(1, horario, horario, 0, 0, 0);
+        try {
+            Banco.abrir();
+            String count = "SELECT count(*) as contador from controleCaixa where status = 1;";
+            PreparedStatement pst = Banco.getConexao().prepareStatement(count);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            int alo = rs.getInt("contador");
+            if (alo == 0){
+                String resp = JOptionPane.showInputDialog(null, "Digite o valor inicial");
+                c.setDinheiro(Double.parseDouble(resp));
+                caixa.inserir(c);
+                caixa.valorInicial(c);
+                atualizaLblCaixa();
+            }else{
+                JOptionPane.showMessageDialog(null, "Caixa já está aberto");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_abrirCaixaActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+        // TODO add your handling code here:
+        int resp = JOptionPane.showConfirmDialog(null, "Deseja sair?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if(resp == JOptionPane.YES_OPTION){
+            String sql = "update funcionarios set logado = 0";
+            try{
+                Banco.abrir();
+                PreparedStatement pst = Banco.getConexao().prepareStatement(sql);
+                pst.executeUpdate(); 
+                Banco.fechar();
+                this.dispose();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_SairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,7 +464,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuVenda;
+    private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem abrirCaixa;
+    private javax.swing.JMenu btnSair;
     private javax.swing.JMenuItem fecharCaixa;
     private javax.swing.JMenuItem itemAddCliente;
     private javax.swing.JMenuItem itemAddMed;
@@ -396,6 +478,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JLabel lblBolinha;
     private javax.swing.JLabel lblCaixa;
     private javax.swing.JLabel lblNome;
     private javax.swing.JMenu menuCaixa;
