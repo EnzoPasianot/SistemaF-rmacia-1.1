@@ -363,7 +363,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         try {
             venda = new TelaVenda();
             venda.setVisible(true);
-            dispose();
         } catch (ParseException ex) {
             Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
